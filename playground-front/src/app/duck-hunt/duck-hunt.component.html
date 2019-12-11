@@ -1,0 +1,48 @@
+<div class="container">
+    
+    <!-- main row -->
+    <div class="row">
+
+        <!-- The DUCK AREA -->
+        <div class="col-md-9 container" id="duckField">
+            <!-- the duck -->
+            <div name="duckDiv" id="theDuck" (click)="successfullHit()" 
+                #duckDiv [@flyTheDuckAnimation]="animationState"
+                (@flyTheDuckAnimation.done)="onAnimationDone()"
+                [ngClass]="{'hasHit' : hasHit}">
+
+            </div>
+            <div style="font-weight: bold; font-size: 18pt; position: absolute; top: 50%; left: 50%;" *ngIf="hasHit">+1</div>
+        </div>
+
+        <!-- controllers area -->
+        <div class="col-md-3 row card bg-light" id="controllersArea" style="padding-top: 10px;">
+            
+            <div class="col-xs-12" style="font-size: 18pt; font-weight: bold;">
+                Your score: {{ score }}
+            </div>
+            <br><br>
+            <div class="col-xs-12" *ngIf="displayTimer">
+                Elapsed Seconds: {{ passedSeconds }}
+            </div>
+            <br>
+            <br><br>
+            <button 
+                class="btn btn-success" 
+                (click)="manageStart()" 
+                [ngClass]="{'btn-danger' : hasStarted}">{{ hasStarted ? 'Stop' : 'Start'}} </button>
+            <br>
+            <button class="btn btn-warning" (click)="reset()" >Reset</button>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+
+</div>
+
+<br><br><br><br>

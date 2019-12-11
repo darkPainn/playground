@@ -1,0 +1,29 @@
+#duckField{
+    background-image: url("src/assets/prviKC.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 500px;
+    margin-top: 5px;
+    padding: 0;
+    position: relative;
+}
+
+#theDuck{
+    height: 50px;
+    width: 50px;
+    background-image: url("src/assets/duck.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+}
+
+#theDuck:hover{
+    cursor: crosshair;
+}
+
+.hasHit{
+    border: 2px solid red;
+}

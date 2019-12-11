@@ -1,0 +1,29 @@
+<div class="container">
+
+    <h2>Please login to proceed..</h2>
+    <div class="card">
+        You can login using the default user username=user and password=user.
+        <br> 
+        You can also create your own user <a routerLink="/signup">here.</a>
+    </div>
+
+    <div class="col-xs-12 alert alert-warning" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </div>
+
+    <form (ngSubmit)="logUserIn()" #loginForm="ngForm">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" [(ngModel)]="user.username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="user.password" required>
+        </div>
+        
+        <button type="submit" class="btn btn-success" [disabled]="!loginForm.valid">Login</button>
+        
+    </form>
+
+</div>

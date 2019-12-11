@@ -1,0 +1,40 @@
+<div class="container" *ngIf="errorMessage; else noError">
+    <div class="alert alert-danger">
+        {{ errorMessage }}
+    </div>
+</div>
+
+<ng-template #noError>
+    <div class="container">
+        
+        <h2>{{ pageHeader }}</h2>
+
+        <form (ngSubmit)="handleFormSubmission()" #updateMovieForm="ngForm">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input [(ngModel)]="movie.title" type="text" name="title" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="directors">Director(s) Seperated by comma (,)</label>
+                <input [(ngModel)]="directorNames" type="text" name="name" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="releaseDate">Release Date</label>
+                <input 
+                    [ngModel]="movie.releaseDate | date:'yyyy-MM-dd'" 
+                    (ngModelChange)="movie.releaseDate=$event" 
+                    type="date" name="releaseDate" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="type">Type of the movie</label>
+                <input [(ngModel)]="movie.type" type="text" name="type" class="form-control" required>
+            </div>
+
+            <button [disabled]="!updateMovieForm.valid" class="btn btn-success">Save the Movie</button>
+
+        </form>
+    </div>
+</ng-template>

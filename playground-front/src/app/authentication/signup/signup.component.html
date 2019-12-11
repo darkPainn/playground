@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row alert alert-success" *ngIf="successmessage">
+        {{ successmessage }}
+    </div>
+
+    <div class="row alert alert-danger" *ngIf="errormessage">
+        {{ errormessage }}
+    </div>
+
+    <h2>Create an account</h2>
+
+    <form (ngSubmit)="registerUser()" #registerForm="ngForm">
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.username" required placeholder="Username">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Password" [(ngModel)]="user.password" required>
+        </div>
+
+        <button [disabled]="!registerForm.valid" type="submit" class="btn btn-success">Signup</button>
+    </form>
+</div>
