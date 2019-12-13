@@ -8,6 +8,7 @@ import { LoginComponent } from './authentication/login/login.component';
 import { LoginGuard } from './guards/RouteGuard';
 import { LogoutComponent } from './authentication/logout/logout.component';
 import { SignupComponent } from './authentication/signup/signup.component';
+import { EcommerceHomeComponent } from './ecommerce/ecommerce-home/ecommerce-home.component';
 
 
 const routes: Routes = [  
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path:'home',component:HomeComponent,canActivate:[LoginGuard]},
   {path:'movies', component:MoviesComponent,canActivate:[LoginGuard]},  
   {path:'update-movie/:id', component:UpdateMovieComponent,canActivate:[LoginGuard]},
-  {path:'duck-hunt', component:DuckHuntComponent,canActivate:[LoginGuard]},    
+  {path:'duck-hunt', component:DuckHuntComponent,canActivate:[LoginGuard]},
+  {path:'shopping', component:EcommerceHomeComponent,canActivate:[LoginGuard]},    
   {path:'**',component:HomeComponent,canActivate:[LoginGuard]}
 ];
 

@@ -15,7 +15,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-/*Only uncomment when you need the postman
+/*Only uncomment when you need POST from postman
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)*/
 public class CorsFilter implements Filter {
