@@ -1,0 +1,20 @@
+<div class="container-fluid">
+
+    <!-- ROW FOR THE HEADER OF THE SHOPPING ONLY -->
+    <div class="row" style="border-bottom: 0.5px solid black; padding: 0;">
+        <div class="col-12" style="padding: 0;">
+            <app-ecommerce-header></app-ecommerce-header>
+        </div>
+    </div>
+
+    <h2>This is your shopping cart</h2>
+
+    <div *ngFor="let product of products">
+        <p>{{ product.name }}</p>
+        <p>{{ product.id }}</p>
+        <!-- <p>{{ product.description }}</p>
+        <p>{{ product.price }}</p> -->
+    </div>
+</div>
+
+<br><br><br><br><br><br>

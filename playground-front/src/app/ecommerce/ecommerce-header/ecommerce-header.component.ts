@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ChartService } from '../services/chart.service';
+import { Product } from '../model/product';
 
 @Component({
   selector: 'app-ecommerce-header',
@@ -6,10 +8,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ecommerce-header.component.css']
 })
 export class EcommerceHeaderComponent implements OnInit {
+  private cartTotal:number = 0;
+  private numberOfItemsInCart:number = 0;
 
-  constructor() { }
+  constructor(
+    private cartService:ChartService
+  ) { }
 
   ngOnInit() {
+    this.cartTotal = this.cartService.calculateCartTotal();
+    this.numberOfItemsInCart = this.cartService.getNumberOfItemsInCart();
+    this.cartService.productAddedSourceChanged$.subscribe(
+      response => {
+        //console.log('here is what was published' + response.description);
+        this.cartTotal = this.cartService.calculateCartTotal();
+        this.numberOfItemsInCart = this.cartService.getNumberOfItemsInCart();
+      },
+      error => {
+        console.log('error occured on chart service' + error); 
+      }
+    );
   }
+
+  
 
 }

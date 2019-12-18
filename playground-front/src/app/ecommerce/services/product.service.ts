@@ -16,4 +16,9 @@ export class ProductService {
   fetchAllProducts(){
     return this.http.get<Product[]>(this.baseURL);
   }
+
+  getProductWithId(id:number){
+    return this.http.get<Product>(this.baseURL + id);
+  }
+  
 }

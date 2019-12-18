@@ -1,0 +1,31 @@
+<div class="container-fluid">
+
+    <!-- ROW FOR THE HEADER OF THE SHOPPING ONLY -->
+    <div class="row" style="border-bottom: 0.5px solid black; padding: 0;">
+        <div class="col-12" style="padding: 0;">
+            <app-ecommerce-header></app-ecommerce-header>
+        </div>
+    </div>
+
+    <h2 style="text-align: center;">Details</h2>
+
+    <div class="row" *ngIf="errorMessage; else noError">
+        <div class="col-10 alert alert-danger">
+            {{ errorMessage }}
+        </div>
+    </div>
+
+    <ng-template #noError>
+        <div class="row">
+            <div class="col-10">
+                <p>{{ product.id }} </p>
+                <p>{{ product.sku }} </p>
+            </div>
+        </div>
+    </ng-template>
+
+    
+
+</div>
+    
+<br><br><br><br><br><br>

@@ -21,6 +21,8 @@ import { EcommerceHeaderComponent } from './ecommerce/ecommerce-header/ecommerce
 import { ShoppingCategoryComponent } from './ecommerce/shopping-category/shopping-category.component';
 import { ProductListComponent } from './ecommerce/product-list/product-list.component';
 import { ProductService } from './ecommerce/services/product.service';
+import { ShoppingChartComponent } from './ecommerce/shopping-chart/shopping-chart.component';
+import { ProductDetailComponent } from './ecommerce/product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { ProductService } from './ecommerce/services/product.service';
     EcommerceHomeComponent,
     EcommerceHeaderComponent,
     ShoppingCategoryComponent,
-    ProductListComponent
+    ProductListComponent,
+    ShoppingChartComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
