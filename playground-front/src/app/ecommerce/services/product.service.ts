@@ -20,5 +20,9 @@ export class ProductService {
   getProductWithId(id:number){
     return this.http.get<Product>(this.baseURL + id);
   }
+
+  fetchProductCategoryNames(){
+    return this.http.get<string[]>('http://localhost:8080/productcategory-service/categories');
+  }
   
 }

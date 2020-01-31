@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-shopping-category',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingCategoryComponent implements OnInit {
 
-  constructor() { }
+  private productCategoryNames:string[]=[];
+
+  constructor(
+    private productService:ProductService
+  ) { }
 
   ngOnInit() {
+    this.productService.fetchProductCategoryNames().subscribe(
+      data => {
+        this.productCategoryNames = data;
+      }
+    );
   }
 
 }
