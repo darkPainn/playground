@@ -1,0 +1,40 @@
+.no-padding{
+    padding: 0;
+}
+
+  
+  .value-button {
+    border: 1px solid #ddd;
+    margin: 0px;
+    text-align: center;
+    vertical-align: middle;
+    background: #eee;
+  }
+
+  .decrease {
+    margin-right: -4px;
+    border-radius: 8px 0 0 8px;
+  }
+  
+ .increase {
+    margin-left: -4px;
+    border-radius: 0 8px 8px 0;
+  }
+  
+  .value-button:hover {
+    cursor: pointer;
+  }
+  
+  input {
+    text-align: center;
+    border: none;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin: 0px;
+  }
+  
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }

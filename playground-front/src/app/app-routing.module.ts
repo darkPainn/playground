@@ -8,9 +8,9 @@ import { LoginComponent } from './authentication/login/login.component';
 import { LoginGuard } from './guards/RouteGuard';
 import { LogoutComponent } from './authentication/logout/logout.component';
 import { SignupComponent } from './authentication/signup/signup.component';
-import { EcommerceHomeComponent } from './ecommerce/ecommerce-home/ecommerce-home.component';
 import { ShoppingChartComponent } from './ecommerce/shopping-chart/shopping-chart.component';
 import { ProductDetailComponent } from './ecommerce/product-detail/product-detail.component';
+import { ProductListComponent } from './ecommerce/product-list/product-list.component';
 
 
 const routes: Routes = [  
@@ -21,9 +21,10 @@ const routes: Routes = [
   {path:'movies', component:MoviesComponent,canActivate:[LoginGuard]},  
   {path:'update-movie/:id', component:UpdateMovieComponent,canActivate:[LoginGuard]},
   {path:'duck-hunt', component:DuckHuntComponent,canActivate:[LoginGuard]},
-  {path:'ecommerce', component:EcommerceHomeComponent,canActivate:[LoginGuard],children:[
-    //{path:'shopping-chart',component:ShoppingChartComponent,canActivate:[LoginGuard]},
+  {path:'ecommerce/products/:productCategory', component:ProductListComponent,canActivate:[LoginGuard],children:[
+    //{path:'**',redirectTo:'ecommerce/'},
   ]},
+  {path:'ecommerce/products/search/:searchTerm',component:ProductListComponent,canActivate:[LoginGuard]},
   {path:'ecommerce/shopping-chart',component:ShoppingChartComponent,canActivate:[LoginGuard]},
   {path:'ecommerce/product-detail/:id',component:ProductDetailComponent,canActivate:[LoginGuard]},
   {path:'**',redirectTo:'home'}

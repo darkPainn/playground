@@ -16,13 +16,13 @@ import { LoginComponent } from './authentication/login/login.component';
 import { LogoutComponent } from './authentication/logout/logout.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
-import { EcommerceHomeComponent } from './ecommerce/ecommerce-home/ecommerce-home.component';
 import { EcommerceHeaderComponent } from './ecommerce/ecommerce-header/ecommerce-header.component';
 import { ShoppingCategoryComponent } from './ecommerce/shopping-category/shopping-category.component';
 import { ProductListComponent } from './ecommerce/product-list/product-list.component';
 import { ProductService } from './ecommerce/services/product.service';
 import { ShoppingChartComponent } from './ecommerce/shopping-chart/shopping-chart.component';
 import { ProductDetailComponent } from './ecommerce/product-detail/product-detail.component';
+import { SearchComponent } from './ecommerce/search/search.component';
 
 @NgModule({
   declarations: [
@@ -36,12 +36,12 @@ import { ProductDetailComponent } from './ecommerce/product-detail/product-detai
     LoginComponent,
     LogoutComponent,
     SignupComponent,
-    EcommerceHomeComponent,
     EcommerceHeaderComponent,
     ShoppingCategoryComponent,
     ProductListComponent,
     ShoppingChartComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

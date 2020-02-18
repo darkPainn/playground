@@ -7,8 +7,6 @@
         </div>
     </div>
 
-    <h2 style="text-align: center;">Details</h2>
-
     <div class="row" *ngIf="errorMessage; else noError">
         <div class="col-10 alert alert-danger">
             {{ errorMessage }}
@@ -18,8 +16,16 @@
     <ng-template #noError>
         <div class="row">
             <div class="col-10">
-                <p>{{ product.id }} </p>
-                <p>{{ product.sku }} </p>
+                <h2 style="text-align: center;">{{ product.name }}</h2>
+                <img src="{{ product.imageUrl }}" style="width:70%"/>
+                <div class="price">{{ product.unitPrice | currency:'USD' }}</div>
+                <button class="btn btn-primary" (click)="addProductToChart()">Add To Cart</button>
+
+                <hr>
+
+                <h4>Description</h4>
+                <p>{{ product.description }}</p>
+                <a routerLink="/ecommerce/products/all"> <<<< Back to product list</a>
             </div>
         </div>
     </ng-template>

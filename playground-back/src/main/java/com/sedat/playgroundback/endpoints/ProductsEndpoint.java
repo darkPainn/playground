@@ -20,7 +20,7 @@ import com.sedat.playgroundback.repository.ProductRepository;
 
 @RestController
 @RequestMapping("/product-service")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
 public class ProductsEndpoint {
 	
 	@Autowired
@@ -49,25 +49,38 @@ public class ProductsEndpoint {
 	//GET ONE PRODUCT
 	@GetMapping("/products/{id}")
 	public ResponseEntity<Product> getProduct(@PathVariable Long id){
-		Product existingProduct = this.productRepository.findById(id).get();
-		if(existingProduct != null) {
-			return ResponseEntity.ok(existingProduct);
+		Product existingProduct = null;
+		try {
+			existingProduct = this.productRepository.findById(id).get();			
+		}catch(java.util.NoSuchElementException e) {
+			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		return ResponseEntity.ok(existingProduct);
 	}
 	
 	//UPDATE A PRODUCT
 	@PutMapping("/products/{id}")
 	public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
-		Product existingProduct = this.productRepository.findById(product.getId()).get();
-		if(existingProduct != null) {
-			existingProduct = product;
-			this.productRepository.save(existingProduct);
-			return ResponseEntity.ok(existingProduct);
+		if(this.updateAProduct(product)) {
+			return ResponseEntity.ok(product);
 		}
 		return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
 	}
 	
+	//UPDATE A LIST OF PRODUCTS
+	@PutMapping("/products")
+	public ResponseEntity<Void> updateProducts(@RequestBody Product[] products){
+		boolean result = true;
+		for(Product eachProduct : products) {
+			result = this.updateAProduct(eachProduct);			
+		}
+		if(result) {
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+	}
+	
+	//DELETE A PRODUCT
 	@DeleteMapping("/products/{id}")
 	public ResponseEntity<Product> deleteProduct(@PathVariable Long id){
 		Product existingProduct = this.productRepository.findById(id).get();
@@ -76,6 +89,23 @@ public class ProductsEndpoint {
 			return ResponseEntity.ok(existingProduct);
 		}
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+	
+	//SEARCH FOR A PRODUCT BY KEYWORD IN NAME OF THE PRODUCT
+	@GetMapping("/products/search/{searchTerm}")
+	public ResponseEntity<List<Product>> searchForProducts(@PathVariable String searchTerm){
+		if(searchTerm == null || searchTerm.length() < 1) return null;
+		return ResponseEntity.ok(this.productRepository.searchForProducts("%" + searchTerm + "%"));
+	}
+	
+	private boolean updateAProduct(Product product) {
+		Product existingProduct = this.productRepository.findById(product.getId()).get();
+		if(existingProduct != null) {
+			existingProduct = product;
+			this.productRepository.save(existingProduct);
+			return true;
+		}
+		return false;		
 	}
 
 }

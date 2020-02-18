@@ -1,14 +1,32 @@
 
 <div class="container-fluid">
 
+    <!-- ROW FOR THE HEADER OF THE SHOPPING ONLY -->
+    <div class="row" style="border-bottom: 0.5px solid black; padding: 0;">
+        <div class="col-12" style="padding: 0;">
+            <app-ecommerce-header></app-ecommerce-header>
+        </div>
+    </div>
+
     <div class="row">
+
+        <!-- LEFT SIDE OF THE VIEW - CATEGORY PART -->
+        <div class="col-2">
+            <app-shopping-category></app-shopping-category>
+        </div>
     
-        <div class="card col-3" style="width: 18rem;" *ngFor="let product of products; let i = index" style="margin-top: 5px;">
-            <a routerLink="/ecommerce/product-detail/{{ product.id }}"><img src="{{ product.imageUrl}}" class="card-img-top" alt="..."></a>
-            <div class="card-body">
-                <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">{{ product.unitPrice | currency: 'USD'}}</p>
-                <button class="btn btn-primary" (click)="addProductToChart(i)">Add To Cart</button>
+        <!-- RIGHT SIDE OF THE VIEW -  PRODUCT LIST -->
+        <div class="alert alert-danger col-10" *ngIf="searchMode && products.length < 1">
+            Your search term didn't match any products.
+        </div>
+        <div class="col-10 row" style="border-left: 1px solid black;">
+            <div class="card col-3" style="width: 18rem;" *ngFor="let product of products; let i = index" style="margin-top: 5px;">
+                <a routerLink="/ecommerce/product-detail/{{ product.id }}"><img src="{{ product.imageUrl}}" class="card-img-top" alt="..."></a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.unitPrice | currency: 'USD'}}</p>
+                    <button class="btn btn-primary" (click)="addProductToChart(i)">Add To Cart</button>
+                </div>
             </div>
         </div>
 

@@ -12,4 +12,6 @@ public interface ProductCategoryRepository extends JpaRepository<ProductCategory
 	@Query("select DISTINCT p.categoryName from ProductCategory p")
 	public String[] getCategoryNames();
 
+	public ProductCategory findByCategoryName(String categoryName);
+
 }

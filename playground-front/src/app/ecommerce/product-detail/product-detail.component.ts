@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../model/product';
 import { ProductService } from '../services/product.service';
+import { ChartService } from '../services/chart.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -15,7 +16,8 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(
     private route:ActivatedRoute,
-    private productService:ProductService
+    private productService:ProductService,
+    private chartService:ChartService
   ) { }
 
   ngOnInit() {
@@ -29,6 +31,10 @@ export class ProductDetailComponent implements OnInit {
         this.errorMessage = 'An Error occured fetching the product. Please try again later..'
       }
     );
+  }
+
+  addProductToChart(i:number){
+    this.chartService.addProductToChart(this.product);    
   }
 
 }

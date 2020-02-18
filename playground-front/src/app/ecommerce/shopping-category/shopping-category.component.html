@@ -1,5 +1,9 @@
 <h4>Shop by category</h4>
 
 <div class="list-group list-group-flush">
-    <a href="#" *ngFor="let categoryName of productCategoryNames" class="list-group-item">{{ categoryName }}</a>
+    <a         
+        *ngFor="let categoryName of productCategoryNames" 
+        routerLink="/ecommerce/products/{{ categoryName }}" 
+        class="list-group-item" 
+        (click)="updateProducts(categoryName)">{{ categoryName }}</a>
 </div>

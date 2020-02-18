@@ -29,8 +29,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http)throws Exception{
 		
-		
-		http.authenticationProvider(this.authProvider).authorizeRequests().antMatchers("/authentication/**","/h2-console/**").permitAll()
+		http.cors().and().
+		authenticationProvider(this.authProvider).authorizeRequests().antMatchers("/authentication/**","/h2-console/**").permitAll()
 			.antMatchers("/movie-service/**").access("hasRole('USER')")
 			.anyRequest().authenticated()
 			.and()
@@ -39,7 +39,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 			.and()
 			.headers().frameOptions().disable()
 			.and().csrf().disable();
-		http.cors();
+		
 	}
 
 }

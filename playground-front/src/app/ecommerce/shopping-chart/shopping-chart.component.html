@@ -1,20 +1,105 @@
 <div class="container-fluid">
 
     <!-- ROW FOR THE HEADER OF THE SHOPPING ONLY -->
-    <div class="row" style="border-bottom: 0.5px solid black; padding: 0;">
-        <div class="col-12" style="padding: 0;">
+    <div class="row" style="border-bottom: 0.5px solid black; padding: 0; margin-bottom: 30px;">
+        <div class="col" style="padding: 0;">
             <app-ecommerce-header></app-ecommerce-header>
         </div>
     </div>
 
-    <h2>This is your shopping cart</h2>
-
-    <div *ngFor="let product of products">
-        <p>{{ product.name }}</p>
-        <p>{{ product.id }}</p>
-        <!-- <p>{{ product.description }}</p>
-        <p>{{ product.price }}</p> -->
+    <div *ngIf="orderPlacedSuccess" class="row justify-content-md-center">
+        <div class="col-8 alert alert-success">
+            Your order has been placed successfully!
+        </div>
     </div>
+
+    <div *ngIf="orderPlacedFail" class="row justify-content-md-center">
+        <div class="col-8 alert alert-danger">
+            A problem occured placing your order! Please try again later..
+        </div>
+    </div>
+
+    <!-- when there is no item -->
+    <div *ngIf="numberOfItemsInCart < 1; else thereAreProducts" class="row" 
+         style="margin-top: 20px;">
+        <h3 class="col" style="text-align: center;">Your cart is empty, why don't you add some items!</h3>
+    </div>
+
+    <ng-template #thereAreProducts>
+        <div class="row" style="margin-top: 20px;">
+
+            <!-- Basket details -->
+            <div class="col-8">
+
+                <!-- This row is to display the items header -->
+                <div class="row">
+                    <h3 class="col" >{{ numberOfItemsInCart }} items</h3>
+                </div>
+                <hr>
+
+                <!-- This row is to display the items in the cart -->
+                <div class="row no-padding" *ngFor="let product of products">
+                    
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 no-padding">
+                                <a routerLink="/ecommerce/product-detail/{{product.id}}"><img src="{{product.imageUrl}}" style="width: 100%; height: 100%;"></a>
+                            </div>
+
+                            <div class="col-8">
+                                <div class="no-padding row col-12"><a routerLink="/ecommerce/product-detail/{{ product.id}}">{{ product.name }}</a></div>
+                                <div class="no-padding row col-12">
+                                    <div class="col-3 no-padding">Unit Price: </div>
+                                    <div class="col no-padding">{{ product.unitPrice | currency:'USD' }}</div>
+                                </div>
+                                <div class="no-padding row col-12">
+                                    <div class="no-padding col-3">
+                                        Quantity:
+                                    </div>
+                                    <div class="no-padding col-5 row">
+                                        <div class="value-button col-1 decrease no-padding" (click)="decreaseQuantity(product)">-</div>
+                                        <input disabled type="number" value="{{ productQuantityMap.get(product) }}" class="col-3 no-padding" style="background-color: azure;"/>
+                                        <div class="value-button col-1 increase no-padding" (click)="increaseQuantity(product)">+</div>
+                                    </div>
+                                </div>
+                                <div class="no-padding row col-12"><p (click)="removeItemFromList(product)" class="fake-link">Remove</p></div>
+                            </div>
+
+                        </div>                        
+                        <hr>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- Order details -->
+            <div class="col-3" style="margin-left: 30px;">
+                <div class="row col-12">
+                    <h3>Order Details</h3>                    
+                </div>
+                <hr>
+                
+                <div class="row">
+                    <div class="col-12 row">
+                        <div class="col-8">Subtotal:</div>
+                        <div class="col-4">{{ cartTotal | currency:'USD' }}</div>
+                    </div>
+                    <div class="col-12 row">
+                        <div class="col-8">Shipping:</div>
+                        <div class="col-4">FREE</div>
+                    </div>
+                    <div class="col-12 row" style="font-weight: bold;">
+                        <div class="col-8">Order Total: </div>
+                        <div class="col-4">{{ cartTotal + shippingCost | currency:'USD' }}</div>
+                    </div>
+                    <div class="col-12" style="padding-top: 30px;">
+                        <button class="btn btn-success" (click)="processCheckOut()">Checkout</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </ng-template>
 </div>
 
 <br><br><br><br><br><br>

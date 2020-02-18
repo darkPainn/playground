@@ -22,4 +22,8 @@ export class ShoppingCategoryComponent implements OnInit {
     );
   }
 
+  updateProducts(categoryName:string){
+    this.productService.updateProducts(categoryName);
+  }
+
 }
