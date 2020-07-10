@@ -24,6 +24,8 @@ import { ShoppingChartComponent } from './ecommerce/shopping-chart/shopping-char
 import { ProductDetailComponent } from './ecommerce/product-detail/product-detail.component';
 import { SearchComponent } from './ecommerce/search/search.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +50,8 @@ import { SearchComponent } from './ecommerce/search/search.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:HttpInterceptorService,multi:true},

@@ -22,7 +22,6 @@ import com.sedat.playgroundback.repository.UsersRepository;
 
 @RestController
 @RequestMapping("/authentication")
-@CrossOrigin(origins = "http://localhost:4200")
 public class AuthenticationEndpoint {
 	
 	@Autowired

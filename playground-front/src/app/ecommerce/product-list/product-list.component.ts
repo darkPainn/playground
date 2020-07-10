@@ -3,6 +3,7 @@ import { Product } from '../model/product';
 import { ProductService } from '../services/product.service';
 import { ChartService } from '../services/chart.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Page } from '../model/Page';
 
 @Component({
   selector: 'app-product-list',
@@ -13,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProductListComponent implements OnInit {
 
   private products:Product[] = [];
+  private page:Page;
   private productCategoryName:string='all';
   private searchTerm:string=null;
   private searchMode:boolean=false;
@@ -22,10 +24,17 @@ export class ProductListComponent implements OnInit {
     private chartService:ChartService,
     private route:ActivatedRoute,
     private router:Router
-  ) { }
+  ) {this.page = new Page(1, 10, 25); }
 
   ngOnInit() {
-    this.route.paramMap.subscribe( () => {this.listProducts();});      
+    this.route.paramMap.subscribe( () => {this.listProducts();}); 
+    /*this.productService.fetchProductsPaginate(0,10).subscribe( response => {
+      console.log(response.page);
+      this.products = response._embedded.products;
+      this.page.currentPage = response.page.number+1;
+      this.page.elementsPerPage = response.page.size;
+      this.page.totalElements = response.page.totalElements;
+    } );  */  
   }
 
   listProducts(){
@@ -46,7 +55,10 @@ export class ProductListComponent implements OnInit {
     this.productCategoryName = this.route.snapshot.params['productCategory'];
     this.productService.fetchAllProducts(this.productCategoryName).subscribe(
       response => {
+        //console.log(response);
         this.products = response;
+        
+        console.log(this.page);
       },
       error => {
         if(error.status === 404){

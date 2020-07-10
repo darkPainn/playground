@@ -11,28 +11,39 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-/*Only uncomment when you need POST from postman
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)*/
-public class CorsFilter implements Filter {
+@Order(Ordered.HIGHEST_PRECEDENCE)
+@Configuration
+public class AppCorsFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-			throws IOException, ServletException {
+			 {
+		
 		HttpServletRequest request = (HttpServletRequest) req;
 	    HttpServletResponse response = (HttpServletResponse) res;
-
+	    
+	    //CORS related configuration
 	    response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+	    response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me,*");
+	    response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
 	    response.setHeader("Access-Control-Allow-Credentials", "true");
-	    response.setHeader("Access-Control-Allow-Methods", "OPTIONS, POST, GET, OPTIONS, DELETE");
 	    response.setHeader("Access-Control-Max-Age", "3600");
-	    response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+	    //response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+	    //response.setHeader("test", "test from response");
+	    
 
-	    chain.doFilter(req, res);
+	    try {
+			chain.doFilter(req, res);
+		} catch (IOException | ServletException e) {
+			System.out.println("Something went wrong here");
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

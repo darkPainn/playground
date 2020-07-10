@@ -28,6 +28,22 @@
                     <button class="btn btn-primary" (click)="addProductToChart(i)">Add To Cart</button>
                 </div>
             </div>
+
+            <!-- PAGINATION -->
+            <div class="row footer-pagination">
+                <div class="col-12" style="margin-top: 20px;">
+
+                    <ngb-pagination
+                        [(page)]="page.currentPage"
+                        [pageSize]="page.elementsPerPage"
+                        [collectionSize]="page.totalElements"
+                        (pageChange)="listProducts()"
+                        >                       
+                    </ngb-pagination>
+
+                </div>
+            </div>
+
         </div>
 
     </div>

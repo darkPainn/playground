@@ -31,7 +31,6 @@ import com.sedat.playgroundback.repository.MoviesRepository;
 
 @RestController
 @RequestMapping("/movie-service")
-@CrossOrigin(origins = "http://localhost:4200")
 public class MoviesEndpoint {
 
 	@Autowired

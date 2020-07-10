@@ -1,11 +1,14 @@
 package com.sedat.playgroundback.endpoints;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sedat.playgroundback.model.Product;
@@ -20,7 +24,6 @@ import com.sedat.playgroundback.repository.ProductRepository;
 
 @RestController
 @RequestMapping("/product-service")
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
 public class ProductsEndpoint {
 	
 	@Autowired
@@ -40,10 +43,19 @@ public class ProductsEndpoint {
 	@GetMapping("/products")
 	public ResponseEntity<List<Product>> getProducts(){
 		List<Product> products = this.productRepository.findAll();
+		Collections.shuffle(products);
 		if(products != null && products.size() > 0) {
 			return ResponseEntity.ok(products);
 		}
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+	
+	@GetMapping("/products-paginate")
+	public Page<Product> getProductsPaginate(Pageable page, @RequestParam int currentPage, @RequestParam int size) {
+		Pageable firstPageWithTwoElements = PageRequest.of(currentPage, size);
+		
+		Page<Product> products = this.productRepository.findAll(firstPageWithTwoElements); 
+		return products;
 	}
 	
 	//GET ONE PRODUCT
@@ -105,7 +117,7 @@ public class ProductsEndpoint {
 			this.productRepository.save(existingProduct);
 			return true;
 		}
-		return false;		
+		return false;
 	}
 
 }

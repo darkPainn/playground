@@ -15,9 +15,10 @@ export class ProductService {
   ) { }
 
   fetchAllProducts(categoryName:string){
-    //console.log('product category is: ' + categoryName);
+    console.log('product category is: ' + categoryName);
     if(categoryName === 'all' || categoryName === '' || categoryName == null){
       return this.http.get<Product[]>(this.baseURL);
+      //return this.http.get<Product[]>('http://localhost:8080/products?page=0&size=10');
     }else{
       return this.http.get<Product[]>('http://localhost:8080/productcategory-service/products-for-category/' + categoryName);
     }
@@ -42,5 +43,9 @@ export class ProductService {
   doCheckOut(products:Product[]){
     return this.http.put(this.baseURL,products);
   }
+
+  /*fetchProductsPaginate(thePage:number, size:number){
+    return this.http.get<Product[]>(`http://localhost:8080/products?page=${thePage}&size=${size}`);
+  }*/
   
 }

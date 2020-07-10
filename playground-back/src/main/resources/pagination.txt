@@ -1,0 +1,83 @@
+
+#############################		http://localhost:8080/products?page=0&size=10		#############################
+
+############ PAGINATION
+Pagination is useful for handling large amounts of data, we can show the user only a small subset of that data in a page.
+Then allow users to click on links (next, previous) to view more content.
+
+############ PAGINATION CONCEPTS
+We query the database for a list of content, then we show the user only one page of data, also the number of total items
+Pagination needs to be handled at both ends - back and front
+Spring Data Rest ships with pagination support.
+
+############ SPRING DATA REST - PARAMETERS
+By default spring data rest returns 20 elements but we can customize it by passing parameters
+1 - page - the page number number to access, it is 0-based and the default is 0
+2 - size - items per page
+
+############ RESPONSE METADATA
+The response you get from Spring data rest has the data but also the metadata for the page regarding the pagination. The metadata is in the json response with the entry:
+ <<array of products>>
+ ...
+ "page"  : {
+ 	"size":10,
+ 	"totalElements":200,
+ 	"totalPages":20,
+ 	"number":0 -> current page number
+ }
+ 
+ 
+ ############ PAGINATION WITH ANGULAR - ng-bootstrap or bootstrap
+ There are many pagination solutions available for angular. One popular component is ng-bootstrap which is a framework for angular that contains useful widgets
+ such as pagination, progress bars, date pickers etc.
+ 
+ <ngb-pagination
+  [(page)]="page" -> The page number to access. 1-based, defaults to 1
+  [pageSize]="pageSize" -> The size of the page, items per page defaults to 10
+  [collectionSize]="items.length"> -> total number of items on the db
+  (pageChange)="listProducts()" ->event handler for page change events
+ </ngb-pagination>
+ 
+ 
+ ############ INSTALLING NG-BOOTSTRAP
+ng add @angular/localize
+npm install @ng-bootstrap/ng-bootstrap
+
+#import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  and add it to imports in app.module.ts
+
+#add the pagination to html template
+<div class="footer-pagination>
+	<ngb-pagination
+		[(page)]="thePageNumber" -> thePageNumber is the property from ts code and refers to the current page
+		[pageSize]="thePageSize" -> elements per page
+		[collectionSize]="theTotalElements" -> number of total elements sent from back end
+		(pageChange)="listProducts()" -> event binding when the page changes by user clicking on the list of pages		
+		>
+	</ngb-pagination>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 

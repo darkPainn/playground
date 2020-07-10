@@ -28,13 +28,16 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http)throws Exception{
+		//System.out.println("################ IN APP SECURITY ###########");
 		
-		http.cors().and().
+		http.
 		authenticationProvider(this.authProvider).authorizeRequests().antMatchers("/authentication/**","/h2-console/**").permitAll()
 			.antMatchers("/movie-service/**").access("hasRole('USER')")
+			.antMatchers("/product-service/**").access("hasRole('USER')")
+			.antMatchers("/productcategory-service/**").access("hasRole('USER')")
 			.anyRequest().authenticated()
 			.and()
-		.httpBasic()
+		.httpBasic().and().cors()
 			//to be able to see the h2 console
 			.and()
 			.headers().frameOptions().disable()
